@@ -1,0 +1,7 @@
+disable-version-string: true
+with-expecter: true
+packages:
+  catand/pkg:
+    config:
+      all: true
+      recursive: true
