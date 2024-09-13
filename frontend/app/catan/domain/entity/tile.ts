@@ -1,4 +1,4 @@
-import { Vector } from "./vector";
+import { VectorAx } from "@lib/vectorAx";
 import { Token } from "./token";
 
 export enum TileType {
@@ -18,7 +18,7 @@ export enum TileType {
  * A Tile is any tile on a hexagonal field even an invalid (placeholder) tile
  */
 export interface Tile {
-  readonly pos: Vector;
+  readonly pos: VectorAx;
   readonly type: TileType;
 }
 

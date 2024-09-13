@@ -23,8 +23,9 @@
         "forceConsistentCasingInFileNames": true,
         "baseUrl": ".",
         "paths": {
-            "@catan/*": ["./app/pkg/catan/application/*"],
-            "@lib/*": ["./app/pkg/lib/*"]
+            "@catan": ["./app/catan/index.ts"],
+            "@lib/*": ["./app/lib/*"],
+            "@components/*": ["./app/components/*"]
         },
 
         // Vite takes care of building everything, not tsc.

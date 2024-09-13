@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { Tile, TileType } from "../../../domain/entity/tile";
-import { Vector } from "../../../domain/entity/vector";
+import { VectorAx } from "@lib/vectorAx";
 
 describe("isValid", () => {
   it.each([
@@ -15,7 +15,7 @@ describe("isValid", () => {
     [TileType.Clay, true],
     [TileType.Gold, true],
   ])("%s -> %o", (type, expected) => {
-    expect(Tile.isValid({ type: type, pos: Vector.create(0, 0) })).toBe(expected);
+    expect(Tile.isValid({ type: type, pos: VectorAx.create(0, 0) })).toBe(expected);
   });
 });
 
@@ -32,7 +32,7 @@ describe("isResource", () => {
     [TileType.Clay, true],
     [TileType.Gold, true],
   ])("%s -> %o", (type, expected) => {
-    expect(Tile.isResource({ type: type, pos: Vector.create(0, 0) })).toBe(expected);
+    expect(Tile.isResource({ type: type, pos: VectorAx.create(0, 0) })).toBe(expected);
   });
 });
 

@@ -1,5 +1,5 @@
 import { EmptyTile, Tile, TileType, ValidTile } from "./tile";
-import { Vector } from "./vector";
+import { VectorAx } from "@lib/vectorAx";
 import { Token } from "./token";
 
 /**
@@ -8,8 +8,6 @@ import { Token } from "./token";
  */
 export interface Field<T extends Tile = Tile> {
   readonly tiles: readonly T[];
-  readonly width: number;
-  readonly height: number;
 }
 
 /**
@@ -43,7 +41,7 @@ function replaceTile<F extends Tile, T extends F, G extends F>(
   tile: T,
   replacement: G,
 ): Field<F> {
-  const existingIndex = field.tiles.findIndex((t) => Vector.equals(t.pos, tile.pos));
+  const existingIndex = field.tiles.findIndex((t) => VectorAx.equals(t.pos, tile.pos));
   if (existingIndex === -1) {
     throw new Error("The tile to replace does not exist in field");
   }

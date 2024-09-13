@@ -1,4 +1,4 @@
-import { Vector } from "../../../domain/entity/vector";
+import { VectorAx } from "@lib/vectorAx";
 import { ResourceTile, Tile, TileType } from "../../../domain/entity/tile";
 import { describe, expect, it } from "vitest";
 import { Template } from "../../../domain/entity/template";
@@ -36,8 +36,6 @@ function createEmptyTokensMap(): Template["tokensMap"] {
 describe("getUnsetTileTypes", () => {
   it("returns 0 if the template's field is empty", () => {
     const field = {
-      width: 0,
-      height: 0,
       tiles: [],
     };
 
@@ -50,12 +48,10 @@ describe("getUnsetTileTypes", () => {
   });
   it("returns empty array if no unset tile types exist", () => {
     const field = {
-      width: 2,
-      height: 1,
       tiles: [
-        { pos: Vector.create(0, 0), type: TileType.Sheep },
+        { pos: VectorAx.create(0, 0), type: TileType.Sheep },
         {
-          pos: Vector.create(0, 1),
+          pos: VectorAx.create(0, 1),
           type: TileType.Water,
         },
       ],
@@ -74,21 +70,19 @@ describe("getUnsetTileTypes", () => {
   });
   it("returns the unset tile types", () => {
     const field = {
-      width: 5,
-      height: 1,
       tiles: [
-        { pos: Vector.create(0, 0), type: TileType.Sheep },
+        { pos: VectorAx.create(0, 0), type: TileType.Sheep },
         {
-          pos: Vector.create(0, 1),
+          pos: VectorAx.create(0, 1),
           type: TileType.Water,
         },
-        { pos: Vector.create(0, 2), type: TileType.Placeholder },
+        { pos: VectorAx.create(0, 2), type: TileType.Placeholder },
         {
-          pos: Vector.create(0, 3),
+          pos: VectorAx.create(0, 3),
           type: TileType.Empty,
         },
         {
-          pos: Vector.create(0, 4),
+          pos: VectorAx.create(0, 4),
           type: TileType.Empty,
         },
       ],
@@ -116,8 +110,6 @@ describe("getUnsetTileTypes", () => {
 describe("getUnsetTokens", () => {
   it("returns 0 if the template's field is empty", () => {
     const field = {
-      width: 0,
-      height: 0,
       tiles: [],
     };
 
@@ -130,13 +122,11 @@ describe("getUnsetTokens", () => {
   });
   it("returns empty array if no unset tokens exist", () => {
     const field: Field<ResourceTile> = {
-      width: 2,
-      height: 1,
       tiles: [
-        { pos: Vector.create(0, 0), type: TileType.Forest, token: Token.Six },
+        { pos: VectorAx.create(0, 0), type: TileType.Forest, token: Token.Six },
         {
           token: Token.Twelve,
-          pos: Vector.create(0, 1),
+          pos: VectorAx.create(0, 1),
           type: TileType.Gold,
         },
       ],
@@ -159,17 +149,15 @@ describe("getUnsetTokens", () => {
   });
   it("returns the unset tokens types", () => {
     const field: Field<ResourceTile | Tile> = {
-      width: 4,
-      height: 1,
       tiles: [
-        { pos: Vector.create(0, 0), type: TileType.Field, token: Token.Ten },
+        { pos: VectorAx.create(0, 0), type: TileType.Field, token: Token.Ten },
         {
-          pos: Vector.create(0, 1),
+          pos: VectorAx.create(0, 1),
           type: TileType.Water,
         },
-        { pos: Vector.create(0, 2), type: TileType.Placeholder },
+        { pos: VectorAx.create(0, 2), type: TileType.Placeholder },
         {
-          pos: Vector.create(0, 3),
+          pos: VectorAx.create(0, 3),
           type: TileType.Empty,
         },
       ],

@@ -1,8 +1,8 @@
 import { EmptyTile, Tile, TileType, ValidTile } from "../entity/tile";
 import { EmptyField, Field, ValidField } from "../entity/field";
-import { Vector } from "../entity/vector";
 import { Template } from "../entity/template";
 import { getRandom } from "@lib/array";
+import { VectorAx } from "@lib/vectorAx";
 
 function sortTiles(tiles: readonly Tile[]): readonly Tile[] {
   const getScore = (tile: Tile): number => {
@@ -77,36 +77,21 @@ export function generateValidField(field: Field, template: Template): ValidField
  * GenerateEmptyField generates an empty field with the given width and height
  * The height is the number of rows in the field and the width the length of the longest row
  */
-function generateEmptyField(width: number, height: number): EmptyField {
+function generateEmptyField(radius: number): EmptyField {
   const tiles: EmptyTile[] = [];
-
-  const minQ = getMin(height);
-  const maxQ = getMax(height);
-  const minR = getMin(width);
-  const maxR = getMax(width);
-
-  for (let q = minQ; q <= maxQ; q++) {
-    for (let r = minR; r <= maxR; r++) {
+  const n = radius;
+  for (let q = -n; q <= n; q++) {
+    for (let r = Math.max(-n, -q - n); r <= Math.min(n, -q + n); r++) {
       tiles.push({
-        pos: Vector.create(q, r),
         type: TileType.Empty,
+        pos: VectorAx.create(q, r),
       });
     }
   }
 
   return {
-    width,
-    height,
     tiles,
   };
-}
-
-function getMin(n: number): number {
-  return -Math.floor((n - 1) / 2);
-}
-
-function getMax(n: number): number {
-  return Math.ceil((n - 1) / 2);
 }
 
 export const FieldService = {
