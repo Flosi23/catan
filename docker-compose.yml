@@ -12,8 +12,6 @@ services:
       FRONTEND_HOST: ${FRONTEND_HOST:-frontend:3000}
       FRONTEND_VITE_HOST: ${FRONTEND_VITE_HOST:-frontend:3001}
     depends_on:
-      catand:
-        condition: service_started
       frontend:
         condition: service_started
 
@@ -22,22 +20,8 @@ services:
       context: ./
       dockerfile: .docker/frontend/Dockerfile
       target: frontend-dev
-    depends_on:
-      catand:
-        condition: service_started
     volumes:
       - ./frontend/:/app
     ports:
       - "3000:3000"
       - "3001:3001"
-
-  catand:
-    build:
-      context: ./
-      dockerfile: .docker/catand/Dockerfile
-      target: catand-dev
-    volumes:
-      - ./catand/:/app
-      - ./.docker/catand/catand.yaml:/app/conf/catand.yaml
-    ports:
-      - "8080:8080"

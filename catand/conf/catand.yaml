@@ -1,4 +1,0 @@
-logging:
-  level: "debug"
-http:
-  addr: "localhost:8080"
