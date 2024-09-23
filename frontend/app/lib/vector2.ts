@@ -1,3 +1,5 @@
+import { VectorAx } from "@lib/vectorAx";
+
 /**
  * Describes a vector in standard two-dimensional space
  */
@@ -18,22 +20,20 @@ function add(a: Vector2, b: Vector2): Vector2 {
   return create(a.x + b.x, a.y + b.y);
 }
 
-function equals(a: Vector2, b: Vector2): boolean {
-  return a.x === b.x && a.y === b.y;
-}
-
-function isOrigin(v: Vector2): boolean {
-  return equals(v, create(0, 0));
-}
-
 function toString(v: Vector2): string {
   return `(${v.x}, ${v.y})}`;
+}
+
+function toVectorAx(v: Vector2): VectorAx {
+  const q = (Math.sqrt(3) / 3) * v.x - (1 / 3) * v.y;
+  const r = (2 / 3) * v.y;
+  return VectorAx.round(VectorAx.create(q, r));
 }
 
 export const Vector2 = {
   create,
   scale,
   toString,
-  isOrigin,
   add,
+  toVectorAx,
 };

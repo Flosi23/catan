@@ -1,49 +1,29 @@
 import { FieldService } from "../domain/service/field.service";
 import { Field as DomainField } from "../domain/entity/field";
-import { Tile as DomainTile } from "../domain/entity/tile";
-import { VectorAx } from "@lib/vectorAx";
-import { Vector2 } from "@lib/vector2";
-
-export enum TileType {
-  Empty = "empty",
-  Placeholder = "placeholder",
-  Water = "water",
-  Desert = "desert",
-  Sheep = "sheep",
-  Forest = "forest",
-  Field = "field",
-  Mountain = "mountain",
-  Clay = "clay",
-  Gold = "gold",
-}
-
-interface Tile {
-  type: TileType;
-  pos: Vector2;
-}
-
-interface Field {
-  tiles: Tile[];
-}
-
-function transformField(field: DomainField): Field {
-  return {
-    tiles: field.tiles.map(transformTile),
-  };
-}
-
-function transformTile(tile: DomainTile): Tile {
-  return {
-    type: tile.type,
-    pos: VectorAx.toVector2(tile.pos),
-  };
-}
+import { Field } from "./entity/field";
+import { Tile } from "./entity/tile";
+import { Template } from "./entity/template";
 
 function generateEmptyField(radius: number): Field {
-  const field = FieldService.generateEmptyField(radius);
-  return transformField(field);
+  return Field.fromDomainEntity(FieldService.generateEmptyField(radius));
+}
+
+function generateValidField(field: Field, template: Template): Field {
+  const domainField = Field.toDomainEntity(field);
+  const domainTemplate = Template.toDomainEntity(template);
+  return Field.fromDomainEntity(FieldService.generateValidField(domainField, domainTemplate));
+}
+
+function replaceTile(field: Field, tile: Tile, replacement: Tile): Field {
+  const domainField = Field.toDomainEntity(field);
+  const domainTile = Tile.toDomainEntity(tile);
+  const domainReplacement = Tile.toDomainEntity(replacement);
+  const newField = DomainField.replaceTile(domainField, domainTile, domainReplacement);
+  return Field.fromDomainEntity(newField);
 }
 
 export const FieldApplication = {
   generateEmptyField,
+  generateValidField,
+  replaceTile,
 };

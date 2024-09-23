@@ -43,7 +43,7 @@ function getReplacementTile(tile: Tile, template: Template, field: Field): Valid
  * Takes a field and a template which must be compatible and replaces any placeholder or empty
  * tiles in the field with valid tiles while respecting the constraints of the template
  */
-export function generateValidField(field: Field, template: Template): ValidField {
+function generateValidField(field: Field, template: Template): ValidField {
   if (!Template.isCompatibleWithField(template, field)) {
     throw new Error("given template is incompatible with field");
   }

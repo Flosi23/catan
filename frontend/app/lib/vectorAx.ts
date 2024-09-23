@@ -29,9 +29,23 @@ function toVector2(v: VectorAx): Vector2 {
   return Vector2.create(x, y);
 }
 
+function round(v: VectorAx): VectorAx {
+  const qGrid = Math.round(v.q);
+  const rGrid = Math.round(v.r);
+  const q = v.q - qGrid;
+  const r = v.r - rGrid;
+
+  if (Math.abs(q) >= Math.abs(r)) {
+    return create(qGrid + Math.round(q + 0.5 * r), rGrid);
+  }
+
+  return create(qGrid, rGrid + Math.round(r + 0.5 * q));
+}
+
 export const VectorAx = {
   create,
   add,
   equals,
   toVector2,
+  round,
 };

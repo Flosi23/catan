@@ -33,6 +33,7 @@ function countTilesByType(field: Field, type: TileType): number {
 function countTilesByToken(field: Field, token: Token): number {
   return field.tiles.filter((t) => Tile.isResource(t) && t.token === token).length;
 }
+
 /**
  * Replaces the given tile in the field with the replacement
  */

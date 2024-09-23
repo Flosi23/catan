@@ -1,33 +1,31 @@
 import { Tile } from "./Tile";
-import { ReactElement, useMemo } from "react";
+import { ReactElement } from "react";
 import { Vector2 } from "@lib/vector2";
+import { Catan } from "@catan";
 
-export interface Field {
+interface Field {
   tiles: Tile[];
 }
 
-const TILE_SIZE = 120;
-const SPACING = 3;
+export interface FieldProps {
+  field: Field;
+  onChange: (field: Field) => void;
+}
 
-export const Field = ({ tiles: tilesArg }: Field): ReactElement => {
-  const tiles = useMemo(
-    () =>
-      tilesArg.map((t) => ({
-        ...t,
-        pos: Vector2.scale(t.pos, TILE_SIZE / 2 + SPACING),
-      })),
-    [tilesArg],
-  );
+export const Field = ({ field, onChange }: FieldProps): ReactElement => {
+  const onTileChange = (tile: Tile) => {
+    onChange(Catan.replaceTile(field, tile, tile));
+  };
 
   return (
     <div className="relative m-auto h-full w-full">
       <div className="absolute left-1/2 top-1/2 h-0 w-0">
         <div className="relative">
-          {tiles.map((t) => (
+          {field.tiles.map((t) => (
             <Tile
+              onChange={onTileChange}
               key={Vector2.toString(t.pos)}
               tile={t}
-              size={TILE_SIZE}
               className="-translate-x-1/2 -translate-y-1/2"
             />
           ))}
